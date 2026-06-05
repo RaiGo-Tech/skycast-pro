@@ -2,6 +2,26 @@
 
 ## Frontend on Vercel
 
+### Direct root deploy
+
+This repository is ready to import directly from the project root. Vercel will read `vercel.json` and use:
+
+- Install command: `npm ci --prefix client`
+- Build command: `npm run vercel-build`
+- Output directory: `client/dist`
+- Framework: Vite
+- SPA rewrite: all app routes fall back to `index.html`
+
+Steps:
+
+1. Push the repository to GitHub.
+2. Import the repository in Vercel.
+3. Keep the project root as the repository root.
+4. Add `VITE_API_URL=https://your-backend-domain.com/api` if you deploy the backend separately.
+5. Click Deploy.
+
+### Client-folder deploy
+
 1. Push the repository to GitHub.
 2. Import the `client` folder as the Vercel project root.
 3. Add `VITE_API_URL=https://your-backend.onrender.com/api`.

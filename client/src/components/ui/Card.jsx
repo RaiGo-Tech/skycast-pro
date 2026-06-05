@@ -1,3 +1,23 @@
+import { motion, useReducedMotion } from 'framer-motion';
+
+const motionTags = {
+  section: motion.section,
+  article: motion.article,
+  aside: motion.aside,
+  div: motion.div,
+  header: motion.header,
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 18, scale: 0.985 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.34, ease: [0.4, 0, 0.2, 1] },
+  },
+};
+
 export const Card = ({
   children,
   className = '',
@@ -7,23 +27,31 @@ export const Card = ({
   bordered = true,
   responsive = true,
 }) => {
+  const reduceMotion = useReducedMotion();
+  const MotionTag = typeof Tag === 'string' ? motionTags[Tag] || motion.section : motion.div;
   const padding = responsive ? 'p-3 xs:p-4 sm:p-5 md:p-6 lg:p-7' : 'p-4 sm:p-5 lg:p-6';
   const radius = responsive ? 'rounded-2xl sm:rounded-2xl md:rounded-3xl' : 'rounded-lg lg:rounded-xl';
 
   return (
-    <Tag
+    <MotionTag
+      variants={cardVariants}
+      initial={reduceMotion ? false : 'hidden'}
+      whileInView={reduceMotion ? undefined : 'visible'}
+      viewport={{ once: true, amount: 0.16 }}
+      whileHover={hoverable && !reduceMotion ? { y: -4, scale: 1.012 } : undefined}
+      whileTap={hoverable && !reduceMotion ? { scale: 0.99 } : undefined}
       className={`
-        glass-panel min-w-0 ${padding}
+        glass-panel min-w-0 will-change-transform ${padding}
         border border-white/10 ${radius}
         transition-all duration-300 ease-smooth
-        ${hoverable ? 'hover:border-white/30 hover:shadow-premium-lg hover:scale-[1.01] cursor-pointer hover:bg-white/8' : ''}
+        ${hoverable ? 'hover:border-white/30 hover:shadow-premium-lg cursor-pointer hover:bg-white/8' : ''}
         ${elevated ? 'shadow-premium-lg shadow-black/50 backdrop-blur-md bg-white/8' : 'backdrop-blur-sm bg-white/5'}
         ${bordered ? '' : 'border-none'}
         ${className}
       `}
     >
       {children}
-    </Tag>
+    </MotionTag>
   );
 };
 
@@ -48,9 +76,12 @@ export const SectionHeader = ({ title, action, subtitle = null, responsive = tru
 );
 
 export const CardGrid = ({ children, columns = 3, responsive = true, className = '' }) => {
-  const colClasses = responsive
-    ? `grid-cols-1 xs:grid-cols-${columns === 3 ? '1' : '1'} sm:grid-cols-2 md:grid-cols-${columns === 3 ? '2' : '2'} lg:grid-cols-${columns}`
-    : `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}`;
+  const columnMap = {
+    2: responsive ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2',
+    3: responsive ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    4: responsive ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
+  };
+  const colClasses = columnMap[columns] || columnMap[3];
 
   const gap = responsive ? 'gap-2.5 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6' : 'gap-4 sm:gap-5 lg:gap-6';
 

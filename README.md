@@ -43,6 +43,17 @@ npm run dev:client
 Frontend: `http://localhost:5173`
 Backend: `http://localhost:5000/api/health`
 
+## Build Commands
+
+```bash
+npm run build
+npm run build:vite
+npm run vercel-build
+npm run preview
+```
+
+For direct Vercel import from the repository root, `vercel.json` is already configured to install `client`, build Vite, serve `client/dist`, and support React Router refreshes.
+
 ## Demo Login
 
 When MongoDB is not configured, the API includes a demo admin user:

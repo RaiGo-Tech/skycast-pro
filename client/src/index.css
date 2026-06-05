@@ -76,7 +76,7 @@
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.05fr) minmax(260px, 0.82fr);
   gap: clamp(12px, 1.4vw, 18px);
-  align-items: stretch;
+  align-items: start;
 }
 
 .stack-grid {

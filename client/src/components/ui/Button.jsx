@@ -1,3 +1,5 @@
+import { motion, useReducedMotion } from 'framer-motion';
+
 const variants = {
   primary:
     'bg-gradient-to-r from-cyan-500 to-cyan-400 text-slate-950 font-bold shadow-premium shadow-cyan-500/30 hover:shadow-premium-lg hover:shadow-cyan-500/50 hover:scale-[1.02] active:scale-95 dark:text-white transition-all duration-300 ease-smooth touch:active:scale-[0.98]',
@@ -35,13 +37,17 @@ export const Button = ({
   responsive = true,
   ...props
 }) => {
+  const reduceMotion = useReducedMotion();
   // Auto-adjust size on mobile
   const finalSize = responsive && size === 'md' ? 'sm' : size;
+  const isDisabled = disabled || loading;
 
   return (
-    <button
+    <motion.button
       type={type}
-      disabled={disabled || loading}
+      disabled={isDisabled}
+      whileHover={!isDisabled && !reduceMotion ? { y: -1 } : undefined}
+      whileTap={!isDisabled && !reduceMotion ? { scale: 0.97 } : undefined}
       className={`
         inline-flex items-center justify-center gap-1 sm:gap-2 font-semibold
         transition-all duration-300 ease-smooth
@@ -60,8 +66,7 @@ export const Button = ({
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
         </svg>
       )}
-      <span className="hidden xs:inline">{children}</span>
-      <span className="inline xs:hidden">{children}</span>
-    </button>
+      <span className="inline-flex items-center justify-center gap-1 sm:gap-2 min-w-0">{children}</span>
+    </motion.button>
   );
 };

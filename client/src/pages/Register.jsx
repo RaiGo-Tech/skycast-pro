@@ -1,15 +1,27 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import RegisterForm from '../components/auth/RegisterForm'
 
-const Register = () => (
-  <main className="form-shell app-bg">
-    <section className="form-card glass-panel text-white">
-      <Link to="/" className="mb-6 inline-block text-sm font-semibold text-cyan-100">Back to SkyCast Pro</Link>
-      <h1 className="text-3xl font-black">Create Account</h1>
-      <p className="mb-6 mt-2 text-white/68">Save favorite cities and personalize weather preferences.</p>
-      <RegisterForm />
-    </section>
-  </main>
-)
+const Register = () => {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <main className="form-shell app-bg">
+      <motion.section
+        className="form-card glass-panel text-white"
+        initial={reduceMotion ? false : { opacity: 0, y: 20, scale: 0.98 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <Link to="/" className="mb-6 inline-block text-sm font-semibold text-cyan-100 transition hover:text-cyan-50">
+          Back to SkyCast Pro
+        </Link>
+        <h1 className="text-3xl font-black">Create Account</h1>
+        <p className="mb-6 mt-2 text-white/68">Save favorite cities and personalize weather preferences.</p>
+        <RegisterForm />
+      </motion.section>
+    </main>
+  )
+}
 
 export default Register
