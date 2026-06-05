@@ -14,7 +14,7 @@ const WeatherMap = ({ location }) => {
       <div className="overflow-hidden rounded-lg border border-white/12">
         <iframe title="Weather map" className="map-frame" src={src} loading="lazy" />
       </div>
-      <div className="mt-3 grid grid-cols-3 gap-2 text-sm text-white/72">
+      <div className="mt-3 grid grid-cols-1 gap-2 text-sm text-white/72 xs:grid-cols-3">
         <div className="rounded-lg bg-white/10 p-3">
           <FiCompass className="mb-2 text-cyan-100" aria-hidden="true" />
           <span className="block text-xs text-white/48">Lat</span>

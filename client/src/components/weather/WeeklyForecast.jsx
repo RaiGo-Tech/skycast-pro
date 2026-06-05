@@ -11,7 +11,7 @@ const WeeklyForecast = ({ daily = [] }) => {
       <div className="space-y-2">
         {daily.map((day) => {
           return (
-            <article key={`${day.day}-${day.date}`} className="grid grid-cols-[64px_42px_1fr_50px] items-center gap-3 rounded-lg bg-white/9 px-3 py-2">
+            <article key={`${day.day}-${day.date}`} className="grid grid-cols-[minmax(52px,0.8fr)_36px_minmax(0,1.5fr)] items-center gap-2 rounded-lg bg-white/9 px-3 py-2 sm:grid-cols-[64px_42px_minmax(0,1fr)_54px] sm:gap-3">
               <div>
                 <p className="text-sm font-bold text-white">{day.day}</p>
                 <p className="text-xs text-white/55">{day.date}</p>
@@ -29,7 +29,7 @@ const WeeklyForecast = ({ daily = [] }) => {
                   />
                 </div>
               </div>
-              <span className="flex items-center justify-end gap-1 text-sm text-cyan-100">
+              <span className="col-span-3 flex items-center justify-start gap-1 text-sm text-cyan-100 sm:col-span-1 sm:justify-end">
                 <FiDroplet aria-hidden="true" />
                 {day.rainProbability}%
               </span>

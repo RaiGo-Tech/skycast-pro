@@ -136,24 +136,18 @@ iframe {
 /* Safe area insets for notched devices */
 @supports (padding: max(0px)) {
   body {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-  }
-
-  header,
-  footer {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 /* Mobile viewport height fix */
 @supports (height: 100dvh) {
   body {
-    height: 100dvh;
+    min-height: 100dvh;
   }
 
-  main {
+  .form-shell {
     min-height: 100dvh;
   }
 }

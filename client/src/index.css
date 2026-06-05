@@ -39,9 +39,9 @@
 .app-shell {
   position: relative;
   z-index: 1;
-  width: min(1480px, calc(100% - 32px));
+  width: min(1480px, calc(100% - clamp(16px, 3vw, 32px)));
   margin: 0 auto;
-  padding: 16px 0 28px;
+  padding: clamp(10px, 2vw, 16px) 0 clamp(18px, 3vw, 28px);
 }
 
 .glass-panel {
@@ -66,14 +66,15 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(220px, 0.18fr) minmax(0, 1fr);
+  gap: clamp(12px, 1.4vw, 18px);
+  align-items: start;
 }
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(340px, 1.05fr) minmax(280px, 0.82fr);
-  gap: 16px;
+  grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.05fr) minmax(260px, 0.82fr);
+  gap: clamp(12px, 1.4vw, 18px);
   align-items: stretch;
 }
 
@@ -84,7 +85,7 @@
 
 .metric-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 112px), 1fr));
   gap: 10px;
 }
 
@@ -159,6 +160,7 @@
 .scroll-row {
   display: flex;
   gap: 10px;
+  min-width: 0;
   max-width: 100%;
   overflow-x: auto;
   padding-bottom: 6px;
@@ -181,8 +183,8 @@
 }
 
 .chart-shell {
-  height: 170px;
-  min-height: 170px;
+  height: clamp(150px, 24vw, 180px);
+  min-height: 150px;
 }
 
 .form-shell {
@@ -218,6 +220,7 @@
 .weather-toolbar {
   position: relative;
   overflow: hidden;
+  min-width: 0;
 }
 
 .weather-toolbar::after {
@@ -242,7 +245,10 @@
 }
 
 .map-frame {
+  display: block;
   width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
   min-height: 232px;
   border: 0;
   border-radius: var(--radius);
@@ -284,25 +290,6 @@
     width: min(100% - 24px, 1060px);
   }
 
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    position: static;
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .sidebar nav {
-    display: flex;
-    min-width: 0;
-    overflow-x: auto;
-    padding-bottom: 2px;
-  }
-
   .content-grid {
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
   }
@@ -312,13 +299,22 @@
   }
 }
 
+@media (max-width: 1023px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell > .dashboard-grid > main {
+    width: 100%;
+  }
+}
+
 @media (max-width: 780px) {
   .app-shell {
     width: min(100% - 20px, 720px);
     padding-top: 10px;
   }
 
-  .content-grid,
   .content-grid {
     grid-template-columns: 1fr;
   }
@@ -380,6 +376,14 @@
 
   .map-frame {
     min-height: 210px;
+  }
+
+  .form-shell {
+    padding: 16px 10px;
+  }
+
+  .form-card {
+    border-radius: 14px;
   }
 
   .phone-preview {

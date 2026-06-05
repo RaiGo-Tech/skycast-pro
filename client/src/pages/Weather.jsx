@@ -43,19 +43,20 @@ const Weather = () => {
 
   return (
     <div className="stack-grid">
-      <header className="weather-toolbar glass-panel grid gap-3 sm:gap-4 p-3 sm:p-4 lg:p-5 grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(200px,auto)] lg:grid-cols-[minmax(180px,240px)_minmax(0,1fr)_auto] lg:items-center border border-white/10 rounded-lg lg:rounded-xl">
-        <div className="min-w-0 order-2 sm:order-1 sm:col-span-2 lg:col-span-1">
+      <header className="weather-toolbar glass-panel grid grid-cols-1 gap-3 rounded-lg border border-white/10 p-3 sm:gap-4 sm:p-4 lg:rounded-xl lg:p-5 xl:grid-cols-[minmax(180px,240px)_minmax(0,1fr)_auto] xl:items-center">
+        <div className="min-w-0 order-2 xl:order-1">
           <p className="text-xs sm:text-sm font-semibold text-cyan-100">Advanced Weather Forecast Platform</p>
           <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">SkyCast Pro</h1>
         </div>
-        <div className="order-1 sm:order-2 sm:col-span-2 lg:col-span-1 lg:order-2">
+        <div className="order-1 min-w-0 xl:order-2">
           <SearchBar />
         </div>
-        <div className="order-3 weather-actions flex flex-wrap gap-2 col-span-full sm:col-span-2 lg:col-span-1 lg:flex-nowrap">
+        <div className="order-3 weather-actions col-span-full flex flex-wrap gap-2 xl:col-span-1 xl:flex-nowrap">
           <Button
             variant="secondary"
             size="md"
             className="flex-1 sm:flex-none"
+            aria-label={`Save ${weather.location.city}`}
             onClick={() => {
               addFavorite({
                 cityName: weather.location.city,
@@ -73,6 +74,7 @@ const Weather = () => {
             variant="primary"
             size="md"
             className="flex-1 sm:flex-none"
+            aria-label="Toggle weather assistant"
             onClick={() => setAssistantOpen((open) => !open)}
           >
             <FiMessageCircle aria-hidden="true" className="h-5 w-5" />
@@ -97,7 +99,7 @@ const Weather = () => {
         </div>
       </section>
 
-      <section className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-1 lg:grid-cols-[1fr_1fr_0.82fr]">
+      <section className="grid grid-cols-1 gap-3 sm:gap-4 lg:gap-5 xl:grid-cols-[1fr_1fr_0.82fr]">
         <WeeklyForecast daily={weather.daily} />
         <WeatherMap location={weather.location} />
         <div className="stack-grid gap-3 sm:gap-4">
@@ -107,7 +109,7 @@ const Weather = () => {
         </div>
       </section>
 
-      <section className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-5 2xl:grid-cols-3">
         <Card>
           <SectionHeader title="Humidity Graph" action="Hourly" />
           <HumidityChart data={weather.hourly} />

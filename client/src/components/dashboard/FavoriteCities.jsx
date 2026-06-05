@@ -12,8 +12,8 @@ const FavoriteCities = () => {
       <div className="space-y-2">
         {favorites.map((city) => {
           return (
-            <article key={city.cityName} className="flex items-center justify-between gap-3 rounded-lg bg-white/9 p-3">
-              <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={() => loadWeather({ city: city.cityName })}>
+            <article key={city.cityName} className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-white/9 p-3">
+              <button type="button" className="flex min-w-0 flex-1 items-center gap-3 text-left" onClick={() => loadWeather({ city: city.cityName })}>
                 <WeatherIcon icon={city.icon} className="h-9 w-9 text-amber-200" aria-hidden="true" />
                 <span className="min-w-0">
                   <span className="block truncate font-bold text-white">{city.cityName}</span>

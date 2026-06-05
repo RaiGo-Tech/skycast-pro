@@ -5,7 +5,7 @@ import { getAqiPercent } from '../../utils/weatherHelpers'
 const AQICard = ({ aqi }) => (
   <Card>
     <SectionHeader title="Air Quality" action={aqi.level} />
-    <div className="grid gap-5 sm:grid-cols-[160px_1fr]">
+    <div className="grid gap-5 2xl:grid-cols-[150px_1fr]">
       <div className="relative grid h-36 place-items-center">
         <div
           className="absolute h-32 w-32 rounded-full"
@@ -24,7 +24,7 @@ const AQICard = ({ aqi }) => (
           <FiActivity className="mt-1 text-lime-200" aria-hidden="true" />
           <p className="text-sm leading-6 text-white/78">{aqi.recommendation}</p>
         </div>
-        <div className="grid grid-cols-3 gap-2 text-center text-sm">
+        <div className="grid grid-cols-2 gap-2 text-center text-sm sm:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3">
           {[
             ['PM2.5', aqi.pm25],
             ['PM10', aqi.pm10],

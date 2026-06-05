@@ -435,11 +435,6 @@
 
 /* Responsive Utilities */
 @media (max-width: 640px) {
-  /* Mobile-first stack */
-  .sm\:flex-row {
-    flex-direction: column;
-  }
-
   /* Touch-friendly buttons on mobile */
   button,
   [role="button"],
@@ -451,12 +446,6 @@
   /* Increase padding on mobile */
   .mobile-pad {
     padding: 1.5rem 1rem;
-  }
-}
-
-@media (min-width: 641px) {
-  .sm\:flex-row {
-    flex-direction: row;
   }
 }
 

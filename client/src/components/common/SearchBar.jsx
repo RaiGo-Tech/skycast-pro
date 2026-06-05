@@ -66,13 +66,13 @@ const SearchBar = () => {
   return (
     <div className="relative min-w-0 w-full" data-search-root>
       <form
-        className="flex min-h-14 items-center gap-2 rounded-lg border border-white/18 bg-white/16 px-3 text-white shadow-lg backdrop-blur-xl sm:gap-3 sm:px-4"
+        className="grid min-h-14 grid-cols-[auto_minmax(0,1fr)_auto_auto_auto] items-center gap-1.5 rounded-lg border border-white/18 bg-white/16 px-2.5 text-white shadow-lg backdrop-blur-xl sm:gap-2 sm:px-4"
         onSubmit={(event) => {
           event.preventDefault()
           submitSearch()
         }}
       >
-        <FiSearch className="h-5 w-5 text-cyan-100" aria-hidden="true" />
+        <FiSearch className="h-5 w-5 flex-none text-cyan-100" aria-hidden="true" />
         <input
           value={query}
           onFocus={() => setOpen(true)}
@@ -80,7 +80,7 @@ const SearchBar = () => {
             setQuery(event.target.value)
             setOpen(true)
           }}
-          className="min-w-0 w-full bg-transparent text-base font-semibold text-white outline-none placeholder:text-white/48"
+          className="min-w-0 w-full bg-transparent text-sm font-semibold text-white outline-none placeholder:text-white/48 xs:text-base"
           placeholder="Search city, country, or ZIP code"
           aria-label="Search weather"
         />
@@ -109,7 +109,7 @@ const SearchBar = () => {
       </form>
 
       {open ? (
-        <div className="absolute left-0 right-0 top-16 z-20 rounded-lg border border-white/18 bg-slate-950/88 p-3 text-white shadow-2xl backdrop-blur-xl">
+        <div className="absolute left-0 right-0 top-16 z-20 max-h-[min(70vh,24rem)] overflow-y-auto rounded-lg border border-white/18 bg-slate-950/88 p-3 text-white shadow-2xl backdrop-blur-xl">
           <div className="mb-2 text-xs font-semibold uppercase text-white/50">Suggestions</div>
           <div className="grid gap-1">
             {suggestions.map((city) => (
