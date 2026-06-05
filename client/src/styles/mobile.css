@@ -157,7 +157,6 @@ a,
 button,
 [role='button'] {
   -webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
 
   &:active {
     opacity: 0.9;
@@ -181,10 +180,10 @@ button,
 button,
 .button,
 .btn {
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
 
 /* ============================================================================

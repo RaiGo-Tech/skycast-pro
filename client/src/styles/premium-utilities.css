@@ -5,23 +5,23 @@
 /* Glass Morphism Effects - Premium */
 .glass-panel {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .glass-panel-elevated {
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .glass-panel-light {
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
@@ -104,11 +104,11 @@
 
 /* Responsive Typography Scaling */
 .text-balance {
-  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .text-pretty {
-  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 /* Smooth Transitions */

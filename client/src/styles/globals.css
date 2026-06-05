@@ -2,15 +2,12 @@
 @import './responsive.css';
 @import './animations.css';
 @import './premium-utilities.css';
-
 /* ============================================================================
    GLOBAL STYLES - Premium Responsive Design System
    ============================================================================ */
-
 * {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
@@ -18,7 +15,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-
 body {
   margin: 0;
   padding: 0;
@@ -32,17 +28,14 @@ body {
   background: var(--bg-gradient);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-
 /* ============================================================================
    TYPOGRAPHY SYSTEM - Responsive & Accessible
    ============================================================================ */
-
 h1,
 h2,
 h3,
@@ -190,6 +183,7 @@ textarea {
 }
 
 select {
+  -webkit-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -328,6 +322,7 @@ select {
 
 .glass-panel {
   background: rgba(15, 23, 42, 0.5);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(148, 197, 231, 0.12);
   border-radius: var(--radius-lg);

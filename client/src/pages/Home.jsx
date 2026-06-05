@@ -98,7 +98,7 @@ const Home = () => {
             transition={{ duration: 1.2, ease: 'easeInOut' }}
           />
 
-          <div className="min-w-0 space-y-3 xs:space-y-4 sm:space-y-5 lg:space-y-6">
+          <div className="relative z-10 min-w-0 space-y-3 xs:space-y-4 sm:space-y-5 lg:space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-2.5 xs:px-3 py-1 xs:py-1.5 text-xs sm:text-sm font-semibold text-white/80 backdrop-blur">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-300/20 text-cyan-200 flex-shrink-0">
                 <FiZap aria-hidden="true" className="h-3 w-3 xs:h-4 xs:w-4" />
@@ -106,7 +106,7 @@ const Home = () => {
               Premium Weather Forecast Platform
             </div>
 
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.2] animate-slide-up">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.2] animate-slide-up drop-shadow-[0_2px_18px_rgba(0,0,0,0.42)]">
               SkyCast Pro
               <span className="block bg-gradient-to-r from-cyan-200 via-sky-300 to-violet-200 bg-clip-text text-transparent mt-1.5 xs:mt-2">
                 Precision forecasts. Glass-smooth.
@@ -239,7 +239,7 @@ const Home = () => {
         </section>
 
         {/* Feature grid */}
-        <section className="mt-8 xs:mt-10 sm:mt-16 lg:mt-20 grid gap-2.5 xs:gap-3 sm:gap-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
+        <section className="mt-8 xs:mt-10 sm:mt-16 lg:mt-20 grid grid-cols-1 gap-2.5 xs:gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {quickFeatures.map((item) => (
             <motion.div
               key={item.title}
