@@ -1,0 +1,16 @@
+{
+  "name": "SkyCast Pro",
+  "short_name": "SkyCast",
+  "description": "Advanced MERN weather forecast platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#061324",
+  "theme_color": "#0a3a6d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

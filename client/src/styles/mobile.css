@@ -1,0 +1,417 @@
+/* ============================================================================
+   MOBILE OPTIMIZATION & TOUCH-FRIENDLY UI
+   ============================================================================ */
+
+/* Touch Targets - Minimum 44x44px for mobile */
+@media (max-width: 1024px) {
+  button,
+  a,
+  input[type='checkbox'],
+  input[type='radio'],
+  label {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-touch,
+  button[class*='btn'],
+  .btn {
+    min-height: 44px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* Mobile-First Spacing */
+@media (max-width: 640px) {
+  .mt-responsive {
+    margin-top: var(--spacing-md);
+  }
+
+  .mb-responsive {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .p-responsive {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Better typography on mobile */
+@media (max-width: 640px) {
+  h1 {
+    font-size: max(1.75rem, min(5vw, 2.25rem));
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: max(1.5rem, min(4vw, 1.875rem));
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: max(1.25rem, min(3vw, 1.5rem));
+  }
+
+  p {
+    line-height: 1.6;
+  }
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Videos & Iframes */
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.responsive-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+
+  iframe,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Better input sizing on mobile */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px;
+    /* Prevents iOS zoom on input focus */
+  }
+}
+
+/* Responsive grid with auto-fit */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Responsive flex direction */
+.flex-responsive-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  header,
+  footer {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* Mobile viewport height fix */
+@supports (height: 100dvh) {
+  body {
+    height: 100dvh;
+  }
+
+  main {
+    min-height: 100dvh;
+  }
+}
+
+/* Better tap highlight on mobile */
+a,
+button,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+/* Improve text selection on mobile */
+::selection {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* Better focus states for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Disable text selection on buttons */
+button,
+.button,
+.btn {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* ============================================================================
+   RESPONSIVE SPACING UTILITIES
+   ============================================================================ */
+
+/* Responsive padding for containers */
+.p-safe {
+  padding: var(--spacing-md);
+
+  @media (min-width: 640px) {
+    padding: var(--spacing-lg);
+  }
+
+  @media (min-width: 1024px) {
+    padding: var(--spacing-xl);
+  }
+}
+
+/* Responsive gaps for sections */
+.gap-safe {
+  gap: var(--spacing-md);
+
+  @media (min-width: 640px) {
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 1024px) {
+    gap: var(--spacing-xl);
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE UTILITIES FOR COMMON PATTERNS
+   ============================================================================ */
+
+/* Stack on mobile, row on desktop */
+.auto-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Hide scroll on mobile */
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Readable line length */
+.max-w-readable {
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================================
+   ACCESSIBILITY FOR MOBILE
+   ============================================================================ */
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: var(--bg-primary);
+  padding: 8px;
+  text-decoration: none;
+  z-index: var(--z-fixed);
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only-on-mobile {
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ============================================================================
+   LANDSCAPE ORIENTATION FIXES
+   ============================================================================ */
+
+@media (orientation: landscape) and (max-height: 600px) {
+  header {
+    padding: var(--spacing-sm);
+  }
+
+  footer {
+    display: none;
+  }
+
+  main {
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+  }
+}
+
+/* ============================================================================
+   PERFORMANCE - OPTIMIZE FOR SLOW NETWORKS
+   ============================================================================ */
+
+/* Reduce animations on slow networks */
+@media (prefers-reduced-data: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   DARK MODE ADJUSTMENTS
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='search'],
+  input[type='url'],
+  textarea,
+  select {
+    background-color: var(--surface-dark);
+    color: var(--text-primary);
+  }
+
+  ::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+    line-height: 1.5;
+  }
+
+  header,
+  footer,
+  nav,
+  .no-print,
+  button,
+  input,
+  [role='toolbar'],
+  [role='navigation'] {
+    display: none !important;
+  }
+
+  main {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #0563c1;
+    text-decoration: underline;
+
+    &::after {
+      content: ' (' attr(href) ')';
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+  }
+
+  p,
+  ul,
+  ol,
+  dl {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+}

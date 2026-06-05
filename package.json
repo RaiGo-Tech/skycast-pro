@@ -1,0 +1,22 @@
+{
+  "name": "skycast-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SkyCast Pro - a MERN weather forecast platform for college projects, portfolios, and demos.",
+  "scripts": {
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build": "npm run build --prefix client",
+    "install:all": "npm install --prefix client && npm install --prefix server",
+    "start": "npm run start --prefix server"
+  },
+  "keywords": [
+    "mern",
+    "weather",
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "MIT"
+}

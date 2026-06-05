@@ -1,0 +1,158 @@
+/* ============================================================================
+   CSS VARIABLES - Premium Design System
+   ============================================================================ */
+
+:root {
+  /* Colors - Primary Palette */
+  --primary: #2a7fff;
+  --primary-light: #418eff;
+  --primary-dark: #1a66ff;
+
+  /* Colors - Accent Palette */
+  --accent: #00d4e6;
+  --accent-light: #4de6ff;
+  --accent-hover: #00aabb;
+  --accent-active: #008091;
+
+  /* Colors - Secondary Palette */
+  --secondary: #8000ff;
+  --secondary-light: #9622ff;
+  --secondary-dark: #6600cc;
+
+  /* Colors - Semantic */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* Text Colors */
+  --text-primary: #f0f9ff;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Background Colors */
+  --bg-primary: #060b1a;
+  --bg-secondary: #0f172a;
+  --bg-tertiary: #1e293b;
+  --bg-gradient: linear-gradient(
+    180deg,
+    #060b1a 0%,
+    #070a12 55%,
+    #050711 100%
+  );
+
+  /* Surface Colors - with glassmorphism */
+  --surface: rgba(15, 23, 42, 0.5);
+  --surface-light: rgba(30, 41, 59, 0.6);
+  --surface-dark: rgba(7, 13, 27, 0.8);
+  --surface-disabled: rgba(15, 23, 42, 0.3);
+
+  /* Border Colors */
+  --border-light: rgba(148, 197, 231, 0.08);
+  --border-normal: rgba(148, 197, 231, 0.12);
+  --border-strong: rgba(148, 197, 231, 0.2);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.4);
+
+  /* Typography */
+  --font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Fira Code', 'Monaco', monospace;
+
+  /* Font Sizes - Responsive */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  --font-size-h1: clamp(2.5rem, 5vw, 3.75rem);
+  --font-size-h2: clamp(2rem, 4vw, 3rem);
+  --font-size-h3: clamp(1.5rem, 3vw, 2rem);
+  --font-size-h4: clamp(1.25rem, 2.5vw, 1.75rem);
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Spacing System - Mobile First */
+  --spacing-0: 0;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
+  --spacing-5xl: 8rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Transitions & Animations */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slower: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  /* Breakpoints (for reference) */
+  /* xs: 0px, sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px */
+
+  /* Line Height */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+}
+
+/* Responsive Font Sizes for Mobile */
+@media (max-width: 640px) {
+  :root {
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h3: 1.25rem;
+    --font-size-h4: 1rem;
+  }
+}
+
+/* Large Screen Adjustments */
+@media (min-width: 1536px) {
+  :root {
+    --font-size-h1: 3.75rem;
+    --font-size-h2: 3rem;
+    --font-size-h3: 2rem;
+    --font-size-h4: 1.75rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3.5rem;
+  }
+}
