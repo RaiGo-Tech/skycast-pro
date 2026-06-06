@@ -14,10 +14,10 @@ import {
   FiMenu,
   FiX,
 } from 'react-icons/fi'
-import { WiDayLightning } from 'react-icons/wi'
 import { useAuth } from '../../hooks/useAuth'
 import { useWeather } from '../../hooks/useWeather'
 import WeatherIcon from '../weather/WeatherIcon'
+import BrandLogo from './BrandLogo'
 import ThemeToggle from './ThemeToggle'
 
 const navItems = [
@@ -90,12 +90,7 @@ const Navbar = () => {
         transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="flex items-center justify-between p-4">
-          <Link to="/" className="flex items-center gap-2 min-w-max">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/20">
-              <WiDayLightning className="h-6 w-6 text-slate-950" aria-hidden="true" />
-            </span>
-            <span className="text-lg font-bold text-white hidden sm:inline">SkyCast</span>
-          </Link>
+          <BrandLogo compact className="min-w-0" textClassName="hidden xs:block text-base" />
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -137,12 +132,7 @@ const Navbar = () => {
             exit={reduceMotion ? { opacity: 0 } : 'exit'}
           >
             <div className="flex h-full flex-col gap-4 p-4">
-              <Link to="/" onClick={closeMobileMenu} className="flex items-center gap-3 mb-4">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/20">
-                  <WiDayLightning className="h-6 w-6 text-slate-950" aria-hidden="true" />
-                </span>
-                <span className="text-xl font-black text-white">SkyCast Pro</span>
-              </Link>
+              <BrandLogo onClick={closeMobileMenu} className="mb-4" />
 
               <nav className="grid gap-1" aria-label="Main navigation">
                 {navItems.map((item, index) => {
@@ -246,12 +236,7 @@ const Navbar = () => {
         animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, filter: 'blur(0px)' }}
         transition={{ duration: 0.36, ease: [0.4, 0, 0.2, 1] }}
       >
-        <Link to="/" className="flex items-center gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/20">
-            <WiDayLightning className="h-6 w-6 text-slate-950" aria-hidden="true" />
-          </span>
-          <span className="text-lg font-black text-white">SkyCast Pro</span>
-        </Link>
+        <BrandLogo />
 
         <nav className="grid gap-1" aria-label="Main navigation">
           {navItems.map((item, index) => {
