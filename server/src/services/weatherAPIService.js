@@ -43,8 +43,29 @@ const formatHour = (date) =>
 
 const formatDate = (date, options) => new Intl.DateTimeFormat('en-IN', options).format(date)
 
+const INDIAN_DEFAULT_CITIES = new Set([
+  'mumbai',
+  'delhi',
+  'new delhi',
+  'bengaluru',
+  'bangalore',
+  'pune',
+  'chennai',
+  'hyderabad',
+  'kolkata',
+  'jaipur',
+  'ahmedabad',
+])
+
+const normalizeWeatherApiCityQuery = (city = 'Mumbai') => {
+  const value = String(city || 'Mumbai').trim()
+  if (!value) return 'Mumbai'
+  if (value.includes(',') || /\bindia\b/i.test(value)) return value
+  return INDIAN_DEFAULT_CITIES.has(value.toLowerCase()) ? `${value}, India` : value
+}
+
 const getWeatherApiQuery = ({ city = 'Mumbai', lat, lon } = {}) =>
-  lat && lon ? `${lat},${lon}` : city
+  lat && lon ? `${lat},${lon}` : normalizeWeatherApiCityQuery(city)
 
 const buildWeatherApiHourly = (forecastDays = [], current = {}) => {
   const hours = forecastDays.flatMap((day) => day.hour || [])

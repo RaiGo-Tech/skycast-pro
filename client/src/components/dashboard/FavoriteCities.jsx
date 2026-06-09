@@ -21,7 +21,7 @@ const FavoriteCities = () => {
                 </span>
               </button>
               <div className="flex flex-none items-center gap-3">
-                <span className="font-bold text-white">{city.temp}°C</span>
+                <span className="font-bold text-white">{city.temp} C</span>
                 <button
                   type="button"
                   className="rounded-lg p-2 text-white/58 transition hover:bg-red-500/16 hover:text-red-100"

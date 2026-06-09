@@ -121,4 +121,4 @@ docs/
 
 ## Deployment
 
-Use `docs/DEPLOYMENT.md` for Vercel, Render/Railway, MongoDB Atlas, and OpenWeatherMap setup.
+Use `deployment.md` for Vercel, backend environment variables, MongoDB Atlas, and weather API setup.

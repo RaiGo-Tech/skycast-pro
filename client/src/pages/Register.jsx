@@ -17,7 +17,7 @@ const Register = () => {
           Back to SkyCast Pro
         </Link>
         <h1 className="text-3xl font-black">Create Account</h1>
-        <p className="mb-6 mt-2 text-white/68">Save favorite cities and personalize weather preferences.</p>
+        <p className="mb-6 mt-2 text-white/68">Create an account with email or social sign in.</p>
         <RegisterForm />
       </motion.section>
     </main>

@@ -1,6 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
+import { useAuth } from '../hooks/useAuth'
+import { weatherHistoryService } from '../services/weatherHistoryService'
 import { weatherService } from '../services/weatherService'
 import {
   DEFAULT_FAVORITES,
@@ -12,22 +14,86 @@ import { readStorage, writeStorage } from '../utils/storage'
 export const WeatherContext = createContext(null)
 
 export const WeatherProvider = ({ children }) => {
+  const { isAuthenticated, loading: authLoading, user } = useAuth()
+  const userId = user?.id
   const [weather, setWeather] = useState(DEMO_WEATHER)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [historyLoading, setHistoryLoading] = useState(false)
+  const [weatherHistory, setWeatherHistory] = useState([])
+  const lastSavedRef = useRef({ key: '', time: 0 })
   const [recentSearches, setRecentSearches] = useState(() =>
     readStorage(RECENT_SEARCHES_KEY, ['Mumbai', 'Delhi', 'Bengaluru']),
   )
   const [favorites, setFavorites] = useState(DEFAULT_FAVORITES)
 
-  const rememberSearch = useCallback((city) => {
+  const rememberSearch = useCallback(async (data, params = {}) => {
+    const city = data?.location?.city || params.city
     if (!city) return
+
     setRecentSearches((current) => {
       const next = [city, ...current.filter((item) => item.toLowerCase() !== city.toLowerCase())].slice(0, 6)
       writeStorage(RECENT_SEARCHES_KEY, next)
       return next
     })
-  }, [])
+
+    if (!isAuthenticated || !userId) return
+
+    const key = `${userId}:${city.toLowerCase()}`
+    const now = Date.now()
+    if (lastSavedRef.current.key === key && now - lastSavedRef.current.time < 2500) return
+
+    lastSavedRef.current = { key, time: now }
+
+    try {
+      const saved = await weatherHistoryService.saveSearch({
+        userId,
+        weather: data,
+        sourceQuery: params.city || city,
+      })
+
+      if (saved) {
+        setWeatherHistory((current) => [saved, ...current].slice(0, 12))
+      }
+    } catch (err) {
+      console.warn('Could not save weather history', err)
+    }
+  }, [isAuthenticated, userId])
+
+  const loadHistory = useCallback(async () => {
+    if (authLoading) return
+
+    if (!isAuthenticated || !userId) {
+      setWeatherHistory([])
+      setRecentSearches(readStorage(RECENT_SEARCHES_KEY, ['Mumbai', 'Delhi', 'Bengaluru']))
+      return
+    }
+
+    setHistoryLoading(true)
+    try {
+      const rows = await weatherHistoryService.listHistory(12)
+      const seen = new Set()
+      const cities = rows
+        .map((row) => row.cityName)
+        .filter((city) => {
+          const key = city.toLowerCase()
+          if (seen.has(key)) return false
+          seen.add(key)
+          return true
+        })
+        .slice(0, 6)
+
+      setWeatherHistory(rows)
+      if (cities.length) {
+        setRecentSearches(cities)
+        writeStorage(RECENT_SEARCHES_KEY, cities)
+      }
+    } catch (err) {
+      console.warn('Could not load weather history', err)
+    } finally {
+      setHistoryLoading(false)
+    }
+  }, [authLoading, isAuthenticated, userId])
 
   const loadWeather = useCallback(
     async (params = { city: 'Mumbai' }) => {
@@ -36,7 +102,7 @@ export const WeatherProvider = ({ children }) => {
       try {
         const response = await weatherService.current(params)
         setWeather(response.data)
-        rememberSearch(response.data.location.city)
+        await rememberSearch(response.data, params)
         return response.data
       } catch (err) {
         setError(err.message)
@@ -74,18 +140,40 @@ export const WeatherProvider = ({ children }) => {
     return () => window.clearTimeout(timer)
   }, [loadWeather])
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      loadHistory()
+    }, 0)
+    return () => window.clearTimeout(timer)
+  }, [loadHistory])
+
   const value = useMemo(
     () => ({
       weather,
       loading,
       error,
+      weatherHistory,
+      historyLoading,
       recentSearches,
       favorites,
       loadWeather,
+      refreshHistory: loadHistory,
       addFavorite,
       removeFavorite,
     }),
-    [addFavorite, error, favorites, loadWeather, loading, recentSearches, removeFavorite, weather],
+    [
+      addFavorite,
+      error,
+      favorites,
+      historyLoading,
+      loadHistory,
+      loadWeather,
+      loading,
+      recentSearches,
+      removeFavorite,
+      weather,
+      weatherHistory,
+    ],
   )
 
   return <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

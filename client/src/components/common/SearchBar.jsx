@@ -14,11 +14,21 @@ const SearchBar = () => {
   const [open, setOpen] = useState(false)
   const debouncedQuery = useDebounce(query, 180)
 
+  const searchableCities = useMemo(() => {
+    const seen = new Set()
+    return [...recentSearches, ...CITY_SUGGESTIONS].filter((city) => {
+      const key = city.toLowerCase()
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  }, [recentSearches])
+
   const suggestions = useMemo(() => {
     const value = debouncedQuery.trim().toLowerCase()
-    if (!value) return CITY_SUGGESTIONS.slice(0, 6)
-    return CITY_SUGGESTIONS.filter((city) => city.toLowerCase().includes(value)).slice(0, 6)
-  }, [debouncedQuery])
+    if (!value) return searchableCities.slice(0, 6)
+    return searchableCities.filter((city) => city.toLowerCase().includes(value)).slice(0, 6)
+  }, [debouncedQuery, searchableCities])
 
   const submitSearch = async (city = query) => {
     if (!validateCityQuery(city)) {
@@ -66,7 +76,7 @@ const SearchBar = () => {
   return (
     <div className="relative min-w-0 w-full" data-search-root>
       <form
-        className="grid min-h-14 grid-cols-[auto_minmax(0,1fr)_auto_auto_auto] items-center gap-1.5 rounded-lg border border-white/18 bg-white/16 px-2.5 text-white shadow-lg backdrop-blur-xl sm:gap-2 sm:px-4"
+        className="sky-search-form grid min-h-14 grid-cols-[auto_minmax(0,1fr)_auto_auto_auto] items-center gap-1.5 rounded-lg border border-white/18 bg-white/16 px-2.5 text-white shadow-lg backdrop-blur-xl sm:gap-2 sm:px-4"
         onSubmit={(event) => {
           event.preventDefault()
           submitSearch()
@@ -109,7 +119,7 @@ const SearchBar = () => {
       </form>
 
       {open ? (
-        <div className="absolute left-0 right-0 top-16 z-20 max-h-[min(70vh,24rem)] overflow-y-auto rounded-lg border border-white/18 bg-slate-950/88 p-3 text-white shadow-2xl backdrop-blur-xl">
+        <div className="sky-search-popover absolute left-0 right-0 top-16 z-20 max-h-[min(70vh,24rem)] overflow-y-auto rounded-lg border border-white/18 bg-slate-950/88 p-3 text-white shadow-2xl backdrop-blur-xl">
           <div className="mb-2 text-xs font-semibold uppercase text-white/50">Suggestions</div>
           <div className="grid gap-1">
             {suggestions.map((city) => (

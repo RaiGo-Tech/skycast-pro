@@ -18,7 +18,7 @@ const Login = () => {
           Back to SkyCast Pro
         </Link>
         <h1 className="text-3xl font-black">Login</h1>
-        <p className="mb-6 mt-2 text-white/68">Use the demo account or your registered account.</p>
+        <p className="mb-6 mt-2 text-white/68">Use email, magic link, or a social account for saved weather history.</p>
         <LoginForm />
         <div className="mt-6 border-t border-white/12 pt-5">
           <ForgotPassword />

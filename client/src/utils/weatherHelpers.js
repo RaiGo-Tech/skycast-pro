@@ -25,7 +25,7 @@ export const weatherIconMap = {
 
 export const getWeatherIcon = (icon = 'partly-cloudy') => weatherIconMap[icon] || WiDayCloudy
 
-export const formatTemp = (value) => `${Math.round(Number(value) || 0)}°C`
+export const formatTemp = (value) => `${Math.round(Number(value) || 0)} C`
 
 export const aqiTone = (level = '') => {
   const normalized = level.toLowerCase()

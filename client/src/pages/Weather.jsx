@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useSearchParams } from 'react-router-dom'
 import { FiHeart, FiMessageCircle } from 'react-icons/fi'
 import toast from 'react-hot-toast'
@@ -20,15 +21,32 @@ import { Card, SectionHeader } from '../components/ui/Card'
 import Loader from '../components/common/Loader'
 import { Button } from '../components/ui/Button'
 import { useWeather } from '../hooks/useWeather'
+import { DEMO_WEATHER } from '../utils/constants'
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.34, ease: [0.4, 0, 0.2, 1] },
+  },
+}
+
+const noopAddFavorite = () => {}
 
 const Weather = () => {
   const [params] = useSearchParams()
-  const { weather, loading, loadWeather, addFavorite } = useWeather()
+  const weatherContext = useWeather()
+  const weather = weatherContext?.weather || DEMO_WEATHER
+  const loading = weatherContext?.loading || false
+  const loadWeather = weatherContext?.loadWeather
+  const addFavorite = weatherContext?.addFavorite || noopAddFavorite
   const [assistantOpen, setAssistantOpen] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const city = params.get('city')
-    if (city) loadWeather({ city })
+    if (city && loadWeather) loadWeather({ city })
   }, [loadWeather, params])
 
   const assistantReply = useMemo(() => {
@@ -41,17 +59,32 @@ const Weather = () => {
 
   if (loading && !weather) return <Loader />
 
+  const sectionMotion = reduceMotion
+    ? {}
+    : {
+        initial: 'hidden',
+        whileInView: 'visible',
+        viewport: { once: true, amount: 0.12 },
+        variants: sectionVariants,
+      }
+
   return (
     <div className="stack-grid">
-      <header className="weather-toolbar glass-panel grid grid-cols-1 gap-3 rounded-lg border border-white/10 p-3 sm:gap-4 sm:p-4 lg:rounded-xl lg:p-5 xl:grid-cols-[minmax(180px,240px)_minmax(0,1fr)_auto] xl:items-center">
-        <div className="min-w-0 order-2 xl:order-1">
-          <p className="text-xs sm:text-sm font-semibold text-cyan-100">Advanced Weather Forecast Platform</p>
-          <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">SkyCast Pro</h1>
+      <motion.header
+        className="weather-toolbar glass-panel grid grid-cols-1 gap-3 rounded-lg border border-white/10 p-4 sm:gap-4 sm:p-5 lg:grid-cols-[minmax(220px,0.7fr)_minmax(0,1.25fr)_auto] lg:items-center"
+        initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <div className="min-w-0 order-2 lg:order-1">
+          <p className="text-xs sm:text-sm font-semibold text-cyan-100">Forecast Workspace</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">{weather.location.city}</h1>
+          <p className="mt-1 truncate text-xs text-white/58">{weather.current.condition}</p>
         </div>
-        <div className="order-1 min-w-0 xl:order-2">
+        <div className="order-1 min-w-0 lg:order-2">
           <SearchBar />
         </div>
-        <div className="order-3 weather-actions col-span-full flex flex-wrap gap-2 xl:col-span-1 xl:flex-nowrap">
+        <div className="order-3 weather-actions col-span-full flex flex-wrap gap-2 lg:col-span-1 lg:flex-nowrap">
           <Button
             variant="secondary"
             size="md"
@@ -81,7 +114,7 @@ const Weather = () => {
             <span className="hidden sm:inline">Assistant</span>
           </Button>
         </div>
-      </header>
+      </motion.header>
 
       {assistantOpen ? (
         <Card>
@@ -90,16 +123,16 @@ const Weather = () => {
         </Card>
       ) : null}
 
-      <section className="content-grid gap-3 sm:gap-4 lg:gap-5">
+      <motion.section className="content-grid gap-3 sm:gap-4 lg:gap-5" {...sectionMotion}>
         <CurrentWeather weather={weather} />
         <HourlyForecast hourly={weather.hourly} />
         <div className="stack-grid gap-3 sm:gap-4">
           <AQICard aqi={weather.aqi} />
           <WeatherAlerts alerts={weather.alerts} />
         </div>
-      </section>
+      </motion.section>
 
-      <section className="grid grid-cols-1 gap-3 sm:gap-4 lg:gap-5 xl:grid-cols-[1fr_1fr_0.82fr]">
+      <motion.section className="grid grid-cols-1 gap-3 sm:gap-4 lg:gap-5 xl:grid-cols-[1fr_1fr_0.82fr]" {...sectionMotion}>
         <WeeklyForecast daily={weather.daily} />
         <WeatherMap location={weather.location} />
         <div className="stack-grid gap-3 sm:gap-4">
@@ -107,9 +140,9 @@ const Weather = () => {
           <SunriseSunset current={weather.current} />
           <UVIndex value={weather.current.uvIndex} />
         </div>
-      </section>
+      </motion.section>
 
-      <section className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-5 2xl:grid-cols-3">
+      <motion.section className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-5 2xl:grid-cols-3" {...sectionMotion}>
         <Card>
           <SectionHeader title="Humidity Graph" action="Hourly" />
           <HumidityChart data={weather.hourly} />
@@ -122,14 +155,14 @@ const Weather = () => {
           <SectionHeader title="Rain Probability" action="7 days" />
           <RainfallChart data={weather.daily} />
         </Card>
-      </section>
+      </motion.section>
 
-      <section className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.section className="grid gap-3 sm:gap-4 lg:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" {...sectionMotion}>
         <WeatherCard label="Weekly Rainfall" value={`${weather.analytics.weeklyRainfall} mm`} icon="rain" meta="Up 12% from last week" />
-        <WeatherCard label="Avg Temperature" value={`${weather.analytics.averageTemperature}°C`} icon="sunny" meta="Stable trend" />
+        <WeatherCard label="Avg Temperature" value={`${weather.analytics.averageTemperature} C`} icon="sunny" meta="Stable trend" />
         <WeatherCard label="Max Wind" value={`${weather.analytics.maxWind} km/h`} icon="cloudy" meta="Coastal breeze" />
         <WeatherCard label="Comfort Score" value={`${weather.analytics.comfort}%`} icon="partly-cloudy" meta="Good for travel" />
-      </section>
+      </motion.section>
 
     </div>
   )

@@ -14,6 +14,8 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.classList.toggle('light', theme === 'light')
+    document.documentElement.dataset.theme = theme
     writeStorage(THEME_KEY, theme)
   }, [theme])
 

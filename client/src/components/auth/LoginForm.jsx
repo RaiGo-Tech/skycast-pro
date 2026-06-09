@@ -5,11 +5,13 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { useAuth } from '../../hooks/useAuth'
 import { isEmail } from '../../utils/validators'
 import { Button } from '../ui/Button'
+import SocialAuthButtons from './SocialAuthButtons'
 
 const LoginForm = () => {
   const navigate = useNavigate()
-  const { login, loading } = useAuth()
-  const [form, setForm] = useState({ email: 'demo@skycast.dev', password: 'demo123' })
+  const { authAction, login, loading } = useAuth()
+  const [form, setForm] = useState({ email: '', password: '' })
+  const emailLoginLoading = loading && authAction === 'email-login'
 
   const submit = async (event) => {
     event.preventDefault()
@@ -27,6 +29,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={submit} className="space-y-4">
+      <SocialAuthButtons email={form.email} />
       <label className="block">
         <span className="mb-2 flex items-center gap-2 text-sm font-semibold text-white/78">
           <FiMail aria-hidden="true" />
@@ -54,7 +57,7 @@ const LoginForm = () => {
       </label>
       <Button type="submit" className="w-full" disabled={loading}>
         <FiLogIn aria-hidden="true" />
-        {loading ? 'Signing in...' : 'Login'}
+        {emailLoginLoading ? 'Signing in...' : 'Login'}
       </Button>
       <p className="text-center text-sm text-white/70">
         New here? <Link className="font-bold text-cyan-200" to="/register">Create account</Link>
