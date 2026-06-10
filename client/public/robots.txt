@@ -1,2 +1,16 @@
+# SkyCast Pro - Professional Robots.txt
+# Allow all crawlers to access the site
 User-agent: *
 Allow: /
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /profile/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Crawl delay (optional - adjust based on server capacity)
+Crawl-delay: 1

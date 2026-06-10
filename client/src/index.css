@@ -1,6 +1,7 @@
 /* Import custom CSS modules */
 @import './styles/variables.css';
 @import './styles/responsive.css';
+@import './styles/responsive-pro.css';
 @import './styles/animations.css';
 @import './styles/mobile.css';
 @import './styles/globals.css';
